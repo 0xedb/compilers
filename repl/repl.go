@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"io"
 
+	"github.com/thebashshell/compilers/token"
+
 	"github.com/thebashshell/compilers/lexer"
 )
 
@@ -39,7 +41,10 @@ func StartREPL(in io.Reader, out io.Writer) {
 
 		if scanner.Scan() {
 			l := lexer.New(scanner.Text())
-			out.Write([]byte(l.NextToken().String()))
+
+			for output := l.NextToken(); output.Type != token.EOF; output = l.NextToken() {
+				out.Write([]byte(output.String()))
+			}
 		}
 	}
 
