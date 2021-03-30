@@ -3,7 +3,7 @@ package ast
 import (
 	"bytes"
 
-	"github.com/thebashshell/compilers/token"
+	"github.com/0xedb/compilers/token"
 )
 
 type Node interface {

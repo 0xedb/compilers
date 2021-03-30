@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"github.com/thebashshell/compilers/token"
+	"github.com/0xedb/compilers/token"
 )
 
 type Lexer struct {

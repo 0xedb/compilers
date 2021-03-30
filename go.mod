@@ -1,3 +1,3 @@
-module github.com/thebashshell/compilers
+module github.com/0xedb/compilers
 
 go 1.16

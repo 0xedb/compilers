@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"io"
 
-	"github.com/thebashshell/compilers/token"
+	"github.com/0xedb/compilers/token"
 
-	"github.com/thebashshell/compilers/lexer"
+	"github.com/0xedb/compilers/lexer"
 )
 
 func StartREPL(in io.Reader, out io.Writer) {

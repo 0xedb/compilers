@@ -3,9 +3,9 @@ package parser
 import (
 	"fmt"
 
-	"github.com/thebashshell/compilers/ast"
-	"github.com/thebashshell/compilers/lexer"
-	"github.com/thebashshell/compilers/token"
+	"github.com/0xedb/compilers/ast"
+	"github.com/0xedb/compilers/lexer"
+	"github.com/0xedb/compilers/token"
 )
 
 type Parser struct {
