@@ -43,5 +43,34 @@ func (p *Parser) ParseProgram() *ast.Program {
 }
 
 func (p *Parser) parseStatement() ast.Statement {
-	return nil
+	switch p.cur.Type {
+	case token.LET:
+		return p.parseLetStatement()
+	default:
+		return nil
+	}
+}
+
+func (p *Parser) parseLetStatement() *ast.LetStatment {
+	stmt := &ast.LetStatment{Token: p.cur}
+
+	p.nextToken()
+
+	if p.cur.Literal != token.IDENT {
+		return nil
+	}
+
+	stmt.Variable = &ast.Identifier{Token: stmt.Token, Value: stmt.Token.Literal}
+
+	// check if next is =
+	if p.peek.Literal != token.ASSIGN {
+		return nil
+	}
+
+	// consume expression until semi colon
+	for p.cur.Literal != token.SEMICOLON {
+		p.nextToken()
+	}
+
+	return stmt
 }
