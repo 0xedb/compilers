@@ -8,14 +8,26 @@ import (
 	"github.com/0xedb/compilers/token"
 )
 
+type (
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
+
 type Parser struct {
 	l         *lexer.Lexer
 	cur, peek token.Token
 	errors    []string
+
+	infixes  map[token.TokenType]infixParseFn
+	prefixes map[token.TokenType]prefixParseFn
 }
 
 func New(l *lexer.Lexer) *Parser {
-	p := &Parser{l: l, errors: []string{}}
+	p := &Parser{
+		l: l, errors: []string{},
+		infixes:  map[token.TokenType]infixParseFn{},
+		prefixes: map[token.TokenType]prefixParseFn{},
+	}
 
 	p.nextToken()
 	p.nextToken()
@@ -26,6 +38,14 @@ func New(l *lexer.Lexer) *Parser {
 func (p *Parser) nextToken() {
 	p.cur = p.peek
 	p.peek = p.l.NextToken()
+}
+
+func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
+	p.prefixes[tokenType] = fn
+}
+
+func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
+	p.infixes[tokenType] = fn
 }
 
 func (p *Parser) ParseProgram() *ast.Program {
