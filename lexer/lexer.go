@@ -12,7 +12,7 @@ type Lexer struct {
 
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
-
+	l.readChar()
 	return l
 }
 
@@ -34,7 +34,13 @@ func (l *Lexer) NextToken() token.Token {
 	switch l.ch {
 	case '=':
 		// catches equal
-		tok = token.MakeToken(token.EQ, l.ch)
+		if l.nextCharIs('=') {
+			l.readChar()
+			tok.Literal = token.EQ
+			tok.Type = token.TokenType(token.EQ)
+		} else {
+			tok = token.MakeToken(token.ASSIGN, l.ch)
+		}
 
 	case '+':
 		tok = token.MakeToken(token.PLUS, l.ch)
@@ -43,8 +49,14 @@ func (l *Lexer) NextToken() token.Token {
 		tok = token.MakeToken(token.MINUS, l.ch)
 
 	case '!':
-		// catches not equl
-		tok = token.MakeToken(token.BANG, l.ch)
+		// catches not equal
+		if l.nextCharIs('=') {
+			l.readChar()
+			tok.Literal = token.NOT_EQ
+			tok.Type = token.TokenType(token.NOT_EQ)
+		} else {
+			tok = token.MakeToken(token.BANG, l.ch)
+		}
 
 	case '*':
 		tok = token.MakeToken(token.ASTERISK, l.ch)
@@ -109,9 +121,12 @@ func (l *Lexer) NextToken() token.Token {
 	return tok
 }
 
-// func (l *Lexer) nextChar() byte {
-
-// }
+func (l *Lexer) nextCharIs(ch byte) bool {
+	if l.offset >= len(l.input) {
+		return false
+	}
+	return ch == l.input[l.offset]
+}
 
 func (l *Lexer) eatWhitespace() {
 	for l.ch == ' ' || l.ch == '\n' || l.ch == '\t' || l.ch == '\r' {
