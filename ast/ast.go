@@ -6,7 +6,7 @@ import (
 
 type Node interface {
 	TokenLiteral() string
-	String() string
+	// String() string
 }
 
 type Expression interface {
@@ -40,8 +40,9 @@ type Identifier struct {
 	Value string
 }
 
-func (i *Identifier) expressionNode()      {}
-func (i *Identifier) String() string       { return "identifier" }
+func (i *Identifier) expressionNode() {}
+
+// func (i *Identifier) String() string       { return "identifier" }
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
 
 type LetStatment struct {
@@ -50,6 +51,7 @@ type LetStatment struct {
 	Value    Expression
 }
 
-func (l *LetStatment) statementNode()       {}
-func (l *LetStatment) String() string       { return "letstatement" }
+func (l *LetStatment) statementNode() {}
+
+// func (l *LetStatment) String() string       { return fmt.Sprintf("%s %s", l.Token, l.Variable) }
 func (l *LetStatment) TokenLiteral() string { return l.Token.Literal }
