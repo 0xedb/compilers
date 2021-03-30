@@ -1,5 +1,7 @@
 package token
 
+import "fmt"
+
 type TokenType string
 
 type Token struct {
@@ -79,4 +81,8 @@ func IsNumber(ch byte) bool {
 
 func IsLetter(ch byte) bool {
 	return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch == '_'
+}
+
+func (t Token) String() string {
+	return fmt.Sprintf("type: %s\tliteral: %s\n", t.Type, t.Literal)
 }
