@@ -84,5 +84,5 @@ func IsLetter(ch byte) bool {
 }
 
 func (t Token) String() string {
-	return fmt.Sprintf("type: %s\tliteral: %s\n", t.Type, t.Literal)
+	return fmt.Sprintf("type: %s\t\tliteral: %s\n", t.Type, t.Literal)
 }
