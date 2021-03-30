@@ -63,3 +63,11 @@ type ReturnStatement struct {
 
 func (r *ReturnStatement) statementNode()       {}
 func (r *ReturnStatement) TokenLiteral() string { return r.Token.Literal }
+
+type ExpressionStatement struct {
+	Token token.Token
+	Value Expression
+}
+
+func (r *ExpressionStatement) statementNode()       {}
+func (r *ExpressionStatement) TokenLiteral() string { return r.Token.Literal }
