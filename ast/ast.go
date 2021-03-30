@@ -55,3 +55,11 @@ func (l *LetStatment) statementNode() {}
 
 // func (l *LetStatment) String() string       { return fmt.Sprintf("%s %s", l.Token, l.Variable) }
 func (l *LetStatment) TokenLiteral() string { return l.Token.Literal }
+
+type ReturnStatement struct {
+	Token token.Token
+	Value Expression
+}
+
+func (r *ReturnStatement) statementNode()       {}
+func (r *ReturnStatement) TokenLiteral() string { return r.Token.Literal }
