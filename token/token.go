@@ -76,7 +76,7 @@ func MakeToken(kind string, literal byte) Token {
 }
 
 func IsNumber(ch byte) bool {
-	return ch >= '0' && ch <= 9
+	return ch >= '0' && ch <= '9'
 }
 
 func IsLetter(ch byte) bool {
