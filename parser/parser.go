@@ -54,16 +54,13 @@ func (p *Parser) parseStatement() ast.Statement {
 func (p *Parser) parseLetStatement() *ast.LetStatment {
 	stmt := &ast.LetStatment{Token: p.cur}
 
-	p.nextToken()
-
-	if p.cur.Literal != token.IDENT {
+	if !p.expectPeek(token.IDENT) {
 		return nil
 	}
 
-	stmt.Variable = &ast.Identifier{Token: stmt.Token, Value: stmt.Token.Literal}
+	stmt.Variable = &ast.Identifier{Token: p.cur, Value: p.cur.Literal}
 
-	// check if next is =
-	if p.peek.Literal != token.ASSIGN {
+	if !p.expectPeek(token.ASSIGN) {
 		return nil
 	}
 
@@ -73,4 +70,21 @@ func (p *Parser) parseLetStatement() *ast.LetStatment {
 	}
 
 	return stmt
+}
+
+func (p *Parser) curTokenIs(t token.TokenType) bool {
+	return p.cur.Type == t
+}
+
+func (p *Parser) peekTokenIs(t token.TokenType) bool {
+	return p.peek.Type == t
+}
+
+func (p *Parser) expectPeek(t token.TokenType) bool {
+	if p.peekTokenIs(t) {
+		p.nextToken()
+		return true
+	} else {
+		return false
+	}
 }
