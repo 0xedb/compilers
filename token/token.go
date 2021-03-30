@@ -68,3 +68,15 @@ func LookupIdent(ident string) TokenType {
 
 	return IDENT
 }
+
+func MakeToken(kind string, literal byte) Token {
+	return Token{Type: TokenType(kind), Literal: string(literal)}
+}
+
+func IsNumber(ch byte) bool {
+	return ch >= '0' && ch <= 9
+}
+
+func IsLetter(ch byte) bool {
+	return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch == '_'
+}
