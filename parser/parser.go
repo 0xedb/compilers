@@ -342,8 +342,10 @@ func (p *Parser) parseLetStatement() *ast.LetStatment {
 		return nil
 	}
 
-	// consume expression until semi colon
-	for p.cur.Literal != token.SEMICOLON {
+	p.nextToken()
+
+	stmt.Value = p.parseExpression(LOWEST)
+	if p.peekTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
 
