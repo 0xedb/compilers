@@ -1,20 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"os"
 
-	"github.com/0xedb/compilers/ast"
-
-	"github.com/0xedb/compilers/lexer"
-	"github.com/0xedb/compilers/parser"
+	"github.com/0xedb/compilers/repl"
 )
 
 func main() {
-	// repl.StartREPL(os.Stdin, os.Stdout)
-	input := `let kofi = 39;`
-
-	l := lexer.New(input)
-
-	p := parser.New(l)
-	fmt.Println(p.ParseProgram().Statements[0].(*ast.LetStatment))
+	repl.StartREPL(os.Stdin, os.Stdout)
 }
